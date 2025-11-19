@@ -982,9 +982,6 @@ class T extends p {
 
 let gi = new T();
 
-/* Variables: Top-Level variables defined here are used to hold game state */
-
-
 /* Drawing Functions */
 
 /* Example drawing function: you can add multiple drawing functions
@@ -1013,4 +1010,4 @@ gi.addEventListener(
 
 /* Run the game */
 gi.run();
-//# sourceMappingURL=index-c293f701.js.map
+//# sourceMappingURL=index-0cd7464a.js.map
