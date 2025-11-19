@@ -15,10 +15,13 @@ import "./style.css";
 
 import { GameInterface } from 'simple-canvas-library';
 
-let gi = new GameInterface();
+let gi = new GameInterface()
+
 
 /* Variables: Top-Level variables defined here are used to hold game state */
 
+let paddle = 0;
+let angle = Math.PI / 4;
 
 /* Drawing Functions */
 
