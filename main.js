@@ -19,10 +19,14 @@ let gi = new GameInterface()
 
 
 /* Variables: Top-Level variables defined here are used to hold game state */
-
-let paddle = 0;
-let angle = Math.PI / 4;
-
+// This code was helped written by Github Copilot
+const paddle = {
+  width: 200,
+  height: 16,
+  x: 340,
+  y: 560,
+  color: 'white'
+}
 /* Drawing Functions */
 
 /* Example drawing function: you can add multiple drawing functions
@@ -30,8 +34,12 @@ that will be called in sequence each frame. It's a good idea to do
 one function per each object you are putting on screen, and you
 may then want to break your drawing function down into sub-functions
 to make it easier to read/follow */
+
 gi.addDrawing(
   function ({ ctx, width, height, elapsed, stepTime }) {
+    // This code was helped written by Github Copilot
+    ctx.fillStyle = paddle.color;
+    ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
     // Your drawing code here...    
   }
 )
@@ -41,14 +49,21 @@ gi.addDrawing(
 /* Example: Mouse click handler (you can change to handle 
 any type of event -- keydown, mousemove, etc) */
 
-gi.addEventListener(
-  "click",
-  function ({ event, x, y }) {
-    // Your click handling code here...
+
+gi.addHandler(
+  "keydown",
+  function ({ event }) {
+    if (event.key === "ArrowLeft") {
+      paddle.x -= 30;
+    } else if (event.key === "ArrowRight") {
+      paddle.x += 30;
+    } else if (event.key === "ArrowUp") {
+      paddle.y -= 30;
+    } else if (event.key ==="ArrowDown") {
+      paddle.y += 30;
+    }
   }
-)
-
-
+);
 /* Run the game */
 gi.run();
 
