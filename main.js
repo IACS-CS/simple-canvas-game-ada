@@ -88,6 +88,43 @@ gi.addDrawing(
     if (paddle.y + paddle.height > height) {
       paddle.y = height - paddle.height;
     }  
+    // When the ball hits the paddle, freeze the screen
+    // This code was helped written by Github Copilot
+    if (ball.x + ball.radius > paddle.x && ball.x - ball.radius < paddle.x + paddle.width &&
+        ball.y + ball.radius > paddle.y && ball.y - ball.radius < paddle.y + paddle.height) {
+      velocityY -= velocityY * 2;
+      // Freeze the game
+      velocityX = 0;
+      velocityY = 0;
+      // Remove control of the paddle
+      gi.removeHandler("keydown");
+      // Display "Game Over" text in the center of the screen
+      ctx.fillStyle = 'red';
+      ctx.font = '48px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText('Game Over', width / 2, height / 2);
+      // Display restart button
+      const restartButton = document.createElement('button');
+      restartButton.innerText = 'Restart';
+      restartButton.style.position = 'absolute';
+      restartButton.style.left = (width / 2 - 50) + 'px';
+      restartButton.style.top = (height / 2 + 50) + 'px';
+      document.body.appendChild(restartButton);
+      restartButton.addEventListener('click', restartGame);
+      function restartGame() {
+        
+        // Reset the positon of the ball and set velocity to default
+        ball.x = 400;
+        ball.y = 300;
+        velocityX = 200;
+        velocityY = 150;
+        // Set paddle position to default when user restarts
+        paddle.x = 340;
+        paddle.y = 560;
+        // Make the restart button invisible when user clicks it but reappear if the user loses again
+        
+      }
+    }
   }
 )
 
