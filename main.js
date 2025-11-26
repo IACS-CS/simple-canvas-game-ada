@@ -37,6 +37,14 @@ let ball = {
   width: 20,
   height: 20
 }
+let ball2 = {
+  x: 200,
+  y: 100,
+  radius: 10,
+  color: 'red',
+  width: 30,
+  height: 30
+}
 // Define variables for velocity of the ball
 let velocityX = 200; 
 let velocityY = 150;
@@ -88,6 +96,23 @@ gi.addDrawing(
     if (paddle.y + paddle.height > height) {
       paddle.y = height - paddle.height;
     }  
+    // Every time a ball hits the wall, spawn in a new ball at a random location
+    // This code was helped written by Github Copilot
+    if (ball.x + ball.radius > width || ball.x - ball.radius < 0 ||
+        ball.y + ball.radius > height || ball.y - ball.radius < 0) {
+      ball2.x = Math.random() * (width - ball2.width) + ball2.radius;
+      ball2.y = Math.random() * (height - ball2.height) + ball2.radius;
+      ctx.fillStyle = ball2.color;
+      ctx.beginPath();
+      ctx.arc(ball2.x, ball2.y, ball2.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // Set a time limit of the game to 10 seconds
+    
+    
+  
+    
+    
     // When the ball hits the paddle, freeze the screen
     // This code was helped written by Github Copilot
     if (ball.x + ball.radius > paddle.x && ball.x - ball.radius < paddle.x + paddle.width &&
@@ -103,30 +128,36 @@ gi.addDrawing(
       ctx.font = '48px Arial';
       ctx.textAlign = 'center';
       ctx.fillText('Game Over', width / 2, height / 2);
-      // Display restart button
-      const restartButton = document.createElement('button');
-      restartButton.innerText = 'Restart';
-      restartButton.style.position = 'absolute';
-      restartButton.style.left = (width / 2 - 50) + 'px';
-      restartButton.style.top = (height / 2 + 50) + 'px';
-      document.body.appendChild(restartButton);
-      restartButton.addEventListener('click', restartGame);
-      function restartGame() {
-        
-        // Reset the positon of the ball and set velocity to default
-        ball.x = 400;
-        ball.y = 300;
-        velocityX = 200;
-        velocityY = 150;
-        // Set paddle position to default when user restarts
-        paddle.x = 340;
-        paddle.y = 560;
-        // Make the restart button invisible when user clicks it but reappear if the user loses again
-        
-      }
-    }
-  }
-)
+      // Show a restart button below the "Game Over" text
+      ctx.fillStyle = 'green';
+      ctx.fillRect(width / 2 - 75, height / 2 + 50, 150, 50);
+      ctx.fillStyle = 'white';
+      ctx.font = '24px Arial';
+      ctx.fillText('Restart', width / 2, height / 2 + 85);
+      // Add a click handler to the restart button
+        }
+      });
+      gi.addHandler(
+        "click",
+        function ({ event }) {
+          const rect = gi.canvas.getBoundingClientRect();
+          const mouseX = event.clientX - rect.left;
+          const mouseY = event.clientY - rect.top;
+          if (mouseX >= width / 2 - 75 && mouseX <= width / 2 + 75 &&
+              mouseY >= height / 2 + 50 && mouseY <= height / 2 + 100) {
+            // Reset the game state
+            velocityX = 200;
+            velocityY = 150;
+            ball.x = 400;
+            ball.y = 300;
+            paddle.x = 340;
+            paddle.y = 560;
+              }
+            }
+          );
+
+
+
 
 /* Input Handlers */
 
@@ -146,6 +177,7 @@ gi.addHandler(
       paddle.y -= 30;
     } else if (event.key ==="ArrowDown") {
       paddle.y += 30;
+
     }
   }
 );
