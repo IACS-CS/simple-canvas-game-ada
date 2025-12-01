@@ -1,8 +1,8 @@
 /* Main game file: main.js */
-/* Game: [Your Game Name Here] */
+/* Game: [Reverse Pong] */
 /* Authors: [Adam Tran] */
-/* Description: [Short description of your game here] */
-/* Citations: [List any resources, libraries, tutorials, etc you used here] 
+/* Description: [This goal of this game is to hit the ball with the pong paddle and as the game goes on, the ball gets slower making it easier for the player to catch the ball] */
+/* Citations: [Significant AI help of Github Copilot and Mr. Hinkle was used to help write parts of this code] 
 /* Note: If you use significant AI help you should cite that here as well */
 /* including summaries of prompts and/or interactions you had with the AI */
 /* In addition, of course, any AI-generated code should be clearly maked */
@@ -40,6 +40,9 @@ let velocityX = 200;
 let velocityY = 150;
 let gameWidth = 0;
 let gameHeight = 0 // set up variables we will populate in the drawing function
+// Define game over and win conditions
+let gameOver = false;
+let gameWon = false;
 /* Drawing Functions */
 gi.getContainer().querySelector('canvas').focus();
 
@@ -117,6 +120,7 @@ gi.addDrawing(function ({ ctx, width, height, elapsed, stepTime }) {
       ctx.fillStyle = "white";
       ctx.font = "24px Arial";
       ctx.fillText("Restart", width / 2, height / 2 + 85);
+  
       // Add a click handler to the restart button
     }
   });
@@ -163,6 +167,21 @@ gi.addHandler("click", function ({ event, x, y }) {
     ball.y = 300;
     paddle.x = 340;
     paddle.y = 560;
+    // Re-add the keydown handler to allow player control again
+    gi.addHandler(
+      "keydown",
+      function ({ event }) {
+        if (event.key === "ArrowLeft") {
+          paddle.x -= 30;
+        } else if (event.key === "ArrowRight") {
+          paddle.x += 30;
+        } else if (event.key === "ArrowUp") {
+          paddle.y -= 30;
+        } else if (event.key === "ArrowDown") {
+          paddle.y += 30;
+        }
+      }
+    );
   }
 });
 
