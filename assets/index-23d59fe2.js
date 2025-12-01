@@ -1083,6 +1083,7 @@ gi.addDrawing(function ({ ctx, width, height, elapsed, stepTime }) {
       ctx.fillStyle = "white";
       ctx.font = "24px Arial";
       ctx.fillText("Restart", width / 2, height / 2 + 85);
+  
       // Add a click handler to the restart button
     }
   });
@@ -1129,6 +1130,21 @@ gi.addHandler("click", function ({ event, x, y }) {
     ball.y = 300;
     paddle.x = 340;
     paddle.y = 560;
+    // Re-add the keydown handler to allow player control again
+    gi.addHandler(
+      "keydown",
+      function ({ event }) {
+        if (event.key === "ArrowLeft") {
+          paddle.x -= 30;
+        } else if (event.key === "ArrowRight") {
+          paddle.x += 30;
+        } else if (event.key === "ArrowUp") {
+          paddle.y -= 30;
+        } else if (event.key === "ArrowDown") {
+          paddle.y += 30;
+        }
+      }
+    );
   }
 });
 
@@ -1154,4 +1170,4 @@ gi.addHandler(
 );
 /* Run the game */
 gi.run();
-//# sourceMappingURL=index-261796c6.js.map
+//# sourceMappingURL=index-23d59fe2.js.map
