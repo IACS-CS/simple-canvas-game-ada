@@ -102,13 +102,14 @@ gi.addDrawing(function ({ ctx, width, height, elapsed, stepTime }) {
     paddle.y = height - paddle.height;
   }
   // Set a time limit of the game to 10 seconds
-  gi.addDrawing(function ({ ctx, width, height, elapsed, stepTime }) {
-    if (elapsed >= 10000) {
+    if (elapsed >= 10000 && gameOver === false) {
+      gameOver= true;
       // Freeze the game
       velocityX = 0;
       velocityY = 0;
       // Remove control of the paddle
       gi.removeHandler("keydown");
+      if (gameOver) {
       // Display "Time's Up!" text in the center of the screen
       ctx.fillStyle = "red";
       ctx.font = "48px Arial";
@@ -123,8 +124,7 @@ gi.addDrawing(function ({ ctx, width, height, elapsed, stepTime }) {
   
       // Add a click handler to the restart button
     }
-  });
-
+  }
   if (
     ball.x + ball.radius > paddle.x &&
     ball.x - ball.radius < paddle.x + paddle.width &&
@@ -150,7 +150,8 @@ gi.addDrawing(function ({ ctx, width, height, elapsed, stepTime }) {
     ctx.fillText("Restart", width / 2, height / 2 + 85);
     // Add a click handler to the restart button
   }
-});
+}
+);
 gi.addHandler("click", function ({ event, x, y }) {
   const rect = gi.canvas.getBoundingClientRect();
   
