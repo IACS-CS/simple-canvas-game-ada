@@ -1072,10 +1072,6 @@ gi.addDrawing(function ({ ctx, width, height, elapsed, stepTime }) {
       // Freeze the game
       velocityX = 0;
       velocityY = 0;
-      // Remove control of the paddle
-      gi.removeHandler("keydown");
-      if (gameOver) {
-      // Display "Time's Up!" text in the center of the screen
       ctx.fillStyle = "red";
       ctx.font = "48px Arial";
       ctx.textAlign = "center";
@@ -1086,11 +1082,9 @@ gi.addDrawing(function ({ ctx, width, height, elapsed, stepTime }) {
       ctx.fillStyle = "white";
       ctx.font = "24px Arial";
       ctx.fillText("Restart", width / 2, height / 2 + 85);
-  
       // Add a click handler to the restart button
     }
-  }
-  if (
+if (
     ball.x + ball.radius > paddle.x &&
     ball.x - ball.radius < paddle.x + paddle.width &&
     ball.y + ball.radius > paddle.y &&
@@ -1101,7 +1095,7 @@ gi.addDrawing(function ({ ctx, width, height, elapsed, stepTime }) {
     velocityX = 0;
     velocityY = 0;
     // Remove control of the paddle
-    gi.removeHandler("keydown");
+    
     // Display "You win text in the center of the screen
     ctx.fillStyle = "green";
     ctx.font = "48px Arial";
@@ -1173,4 +1167,4 @@ gi.addHandler(
 );
 /* Run the game */
 gi.run();
-//# sourceMappingURL=index-f66b9ec6.js.map
+//# sourceMappingURL=index-a886a814.js.map
